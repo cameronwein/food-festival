@@ -13,36 +13,39 @@ module.exports = {
     filename: "[name].bundle.js",
     path: __dirname + "/dist",
   },
-  module: {
-    rules: [
-      {
-        test: /\.jpg$/,
-        use: [
-          {
-            loader: 'file-loader',
-            options: {
-              name(file) {
-                return '[path][name].[ext]';
-              },
-              publicPath: function(url) {
-                return url.replace('../', '/assets/');
-              }
-            }
-          },
-          {
-            loader: 'image-webpack-loader'
-          }
-        ]
-      }
-    ]
+  devServer: {
+    static: {
+      directory: __dirname
+    }
   },
+  // module: {
+  //   rules: [
+  //     {
+  //       test: /\.jpg$/,
+  //       use: [
+  //         {
+  //           loader: 'file-loader',
+  //           options: {
+  //             name: '[path][name].[ext]',
+  //             publicPath: function(url) {
+  //               return url.replace('../', './assets/');
+  //             }
+  //            }
+  //         },
+  //         {
+  //           loader: 'image-webpack-loader'
+  //         }
+  //       ]
+  //     }
+  //   ]
+  // },
   plugins: [
     new webpack.ProvidePlugin({
       $: "jquery",
       jQuery: "jquery"
     }),
     new BundleAnalyzerPlugin({
-      analyzerMode: "static", // the report outputs to an HTML file in the dist folder
+      analyzerMode: "none", // the report outputs to an HTML file in the dist folder
     })
   ],
   mode: "development"
